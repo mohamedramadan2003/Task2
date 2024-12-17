@@ -1,0 +1,15 @@
+function [winners,outputs] = Hamming(X,Y)
+p=size(X,1);
+n=size(X,2);
+m=size(Y,1);
+for i=1:p
+    max=-n;
+    for j=1:m
+        outputs(i,j)=(X(i,:)*Y(j,:)'-n)/2;
+        if(outputs(i,j)>max)
+            max=outputs(i,j);
+            winners(i)=j;
+        end
+    end
+end
+end

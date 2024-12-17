@@ -1,0 +1,18 @@
+function [k,w] = perceptron(X,d,lr,w,a,b,c)
+k=0;
+s=0;
+n=size(X,1);
+while s<n
+    k=k+1;
+    for i=1:n
+        net=X(i,:)*w';
+        if(net>c),O=a;
+        else O=b;
+        end
+        if(d(i)==O),s=s+1;
+        else w=w+lr*(d(i)-O)*X(i,:)
+            s=0;
+        end
+    end
+end
+[k,w] = perceptron([1 0 1;0 -1 -1;-1 -0.5 -1],[-1;1;1],0.1,[1 -1 0],1,-1,0)

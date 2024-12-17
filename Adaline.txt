@@ -1,0 +1,17 @@
+function [e,w] = Adaline(X,d,lr,w,p,r)
+E=1;
+e=r+1;
+n=size(X,1);
+while(E<=p & e>r)
+    for i=1:n
+        net=X(i,:)*w';
+        w=w+lr*(d(i)-net)*X(i,:)
+    end
+    sum=0;
+    for i=1:n
+        sum=sum+(X(i,:)*w')^2;
+    end
+    e=sum/n;
+    E=E+1;
+end
+end
