@@ -1,0 +1,58 @@
+function [H,O,eo, eh, Wo, Wh] = BPropagation (X,Wh, Wo,d, Ir,b)
+
+H_no=size(Wo, 1);
+
+O_no=size(Wo,2);
+
+%forward pass:
+
+for i=1:H_no-1
+
+net=X*Wh(:,i);
+
+H(i)=1/(1+exp(-1*net));
+
+end
+
+H(H_no)=b;
+
+for i=1:0_no
+
+net=H*Wo(:,i);
+
+O(i)=1/(1+exp(-1*net));
+
+end
+
+%error and new output layer weights:
+
+for i=1:0_no
+
+eo(i)=(d(i)-0(i))*(1-0(i))*0(i);
+
+end
+for i=1:H_no
+
+for j=1:0_no
+
+Wo(i,j)=Wo(i,j)+lr*(eo(j)*H(i));
+
+end
+
+end
+
+%error and new hidden layer weights:
+
+for i=1:H_no-1
+
+eh(i)=(eo*Wo(i,:)')*(1-H(i))|*H(i);
+
+end
+
+for i=1:size(X,2)
+
+for j=1:H_no-1 Wh(i,j)=Wh(i,j)+lr*(eh(j)*X(1,i));
+
+end
+
+end
